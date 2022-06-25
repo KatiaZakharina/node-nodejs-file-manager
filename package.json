@@ -1,0 +1,21 @@
+{
+  "name": "nodejs-file-manager",
+  "version": "1.0.0",
+  "description": "File Manager CLIm, should be able to perform basic file operations,get information about the host machine operating system, perform hash calculations, compress and decompress files",
+  "main": "file-manager.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node file-manager.js"
+  },
+  "type": "module",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/KatiaZakharina/node-nodejs-file-manager.git"
+  },
+  "author": "katia.zakharina@gmail.com",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/KatiaZakharina/node-nodejs-file-manager/issues"
+  },
+  "homepage": "https://github.com/KatiaZakharina/node-nodejs-file-manager#readme"
+}
