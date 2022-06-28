@@ -1,6 +1,4 @@
-export const getArgs = (argv) => {
-  const args = argv.slice(2);
-
+export const getArgs = (args) => {
   return args.reduce((acc, curr) => {
     if (curr.startsWith('--')) {
       const command = curr.slice(2);
