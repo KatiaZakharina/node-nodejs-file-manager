@@ -31,7 +31,7 @@ const cd = ([path]) => {
   }
 };
 
-const ls = async () => {
+const list = async () => {
   const currentDir = getCurrentDir();
   let files = await readdir(currentDir);
 
@@ -51,7 +51,7 @@ const ls = async () => {
 export default {
   up,
   cd,
-  ls,
+  list,
   getHomeDir,
   getCurrentDir,
   setCurrentDir,

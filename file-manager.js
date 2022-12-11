@@ -37,7 +37,7 @@ const initCLI = async () => {
       authService.terminateSession(rl, args.username);
     }
 
-    executorService.execute(inputArray);
+    await executorService.execute(inputArray);
   });
 };
 
