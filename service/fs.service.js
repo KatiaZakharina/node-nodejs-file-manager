@@ -1,5 +1,6 @@
 import fs, { open, constants } from 'fs';
 import { unlink, readFile, writeFile, access } from 'fs/promises';
+import { basename, join } from 'path';
 
 const notExist = (error) => error.code === 'ENOENT';
 const alreadyExist = (error) =>
@@ -50,7 +51,7 @@ const rename = async (oldPath, newPath) => {
   }
 };
 
-export const remove = async (path) => {
+const remove = async (path) => {
   try {
     await unlink(path);
   } catch (error) {
@@ -62,9 +63,24 @@ export const remove = async (path) => {
   }
 };
 
+const copy = async (source, destinationDir) => {
+  const fileName = basename(source);
+  const destination = join(destinationDir, fileName);
+
+  const readableStream = fs.createReadStream(source, 'utf8');
+  const writableStream = fs.createWriteStream(destination);
+
+  readableStream.on('data', () => {
+    writableStream.write(chunk);
+  });
+
+  writableStream.end();
+};
+
 export default {
   read,
   create,
   rename,
   remove,
+  copy,
 };

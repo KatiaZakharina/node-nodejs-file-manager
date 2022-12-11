@@ -6,19 +6,25 @@ const readFile = async ([path]) => {
   logService.printPrimary(file);
 };
 
-const addFile = ([path]) => {
-  fsService.create(path);
+const addFile = async ([path]) => {
+  await fsService.create(path);
 };
 
-const renameFile = ([oldFile, newFile]) => {
-  fsService.rename(oldFile, newFile);
+const renameFile = async ([oldFile, newFile]) => {
+  await fsService.rename(oldFile, newFile);
 };
 
-const copyFile = () => {};
-const moveFile = () => {};
+const copyFile = async ([source, destinationDir]) => {
+  await fsService.copy(source, destinationDir)
+};
 
-const deleteFile = ([path]) => {
-  fsService.remove(path);
+const moveFile = async ([source, destinationDir]) => {
+  await fsService.copy(source, destinationDir)
+  await fsService.remove(source);
+};
+
+const deleteFile = async ([path]) => {
+  await fsService.remove(path);
 };
 
 export default {
