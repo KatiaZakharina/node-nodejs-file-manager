@@ -2,7 +2,7 @@ import { EOL, cpus, homedir, userInfo, arch } from 'os';
 
 import logService from '../service/log.service.js';
 
-export const os = async (command) => {
+ const os = async (command) => {
     if (command.length > 1) {
       throw new Error('Invalid command arguments!');
     }
@@ -12,9 +12,11 @@ export const os = async (command) => {
         logService.printPrimary('EOL: ' + JSON.stringify(EOL));
         break;
       }
-      case '--cpus': {
-        logService.printPrimary('Number of CPU cores: ' + cpus().length);
-        console.table(cpus());
+      case '--cpus': { 
+        const cpusInfo = cpus();
+
+        logService.printPrimary('Number of CPU cores: ' + cpusInfo.length);
+        console.table(cpusInfo.map((cpu) => ({"Model @ clock rate (in GHz)": cpu.model})));
         break;
       }
       case '--homedir': {
@@ -34,3 +36,5 @@ export const os = async (command) => {
         logService.printPrimary(`Invalid command arguments! Try again :)`);
     }
 };
+
+export default os;

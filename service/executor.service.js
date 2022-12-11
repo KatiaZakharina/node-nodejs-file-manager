@@ -2,6 +2,7 @@ import logService from './log.service.js';
 import { helper } from '../commands/helper.js';
 import navigation from '../commands/navigation.js';
 import fs from '../commands/fs.js';
+import os from '../commands/os.js';
 
 const COMMANDER = {
   help: helper,
@@ -14,7 +15,7 @@ const COMMANDER = {
   cp: fs.copyFile,
   mv: fs.moveFile,
   rm: fs.deleteFile,
-  // os: os,
+  os,
   // hash: hash,
   // compress: compress,
   // decompress: decompress,
