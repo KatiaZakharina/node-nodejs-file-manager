@@ -1,10 +1,16 @@
-import logService from '../service/log.service';
+import logService from '../service/log.service.js';
 import description from './description.js';
 
 export const helper = (command) => {
+  if (!command.length) {
+    for (const command in description) {
+      logService.printPrimary(`${command} ${description[command]}\n`);
+    }
+    return;
+  }
   command in description
-    ? description[command]
-    : logService.printSecondary(
+    ? logService.printPrimary(`${command} ${description[command]}`)
+    : logService.printPrimary(
         `${command} is not a File Manager command. See 'help'.`
       );
 };

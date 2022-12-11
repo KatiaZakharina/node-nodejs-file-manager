@@ -1,8 +1,8 @@
 export default {
-  help: 'Print list available commands',
-  up: 'Go upper from current directory',
+  help: '- print list available commands',
+  up: '- go upper from current directory',
   cd: '[PATH_TO_DIRECTORY] - Go to dedicated folder from current directory',
-  ls: 'List all files and folder in current directory and print it to console',
+  ls: '- list all files and folder in current directory and print it to console',
   cat: "[PATH_TO_FILE] - Read file and print it's content in console",
   add: '[NEW_FILE_NAME] - Create empty file in current working directory',
   rn: '[PATH_TO_FILE] [NEW_FILE_NAME] - Rename file',
