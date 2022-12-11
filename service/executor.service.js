@@ -1,9 +1,11 @@
 import logService from './log.service.js';
-import { helper } from '../commands/helper.js';
+
+import  helper  from '../commands/helper.js';
 import navigation from '../commands/navigation.js';
 import fs from '../commands/fs.js';
 import os from '../commands/os.js';
 import hash from '../commands/hash.js';
+import zip from '../commands/zip.js';
 
 const COMMANDER = {
   help: helper,
@@ -18,8 +20,8 @@ const COMMANDER = {
   rm: fs.deleteFile,
   os,
   hash: hash.calculateHash,
-  // compress: compress,
-  // decompress: decompress,
+  compress: zip.compress,
+  decompress: zip.decompress,
   default: () => logService.printError(`Invalid input!`),
 };
 

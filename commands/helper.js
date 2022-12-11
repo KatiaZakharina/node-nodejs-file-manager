@@ -1,7 +1,7 @@
 import logService from '../service/log.service.js';
 import description from './description.js';
 
-export const helper = (command) => {
+const helper = (command) => {
   if (!command.length) {
     for (const command in description) {
       logService.printPrimary(`${command} ${description[command]}\n`);
@@ -14,3 +14,5 @@ export const helper = (command) => {
         `${command} is not a File Manager command. See 'help'.`
       );
 };
+
+export default helper;
