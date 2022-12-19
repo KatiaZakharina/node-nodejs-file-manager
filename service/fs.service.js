@@ -1,6 +1,14 @@
-import fs, { open, constants } from 'fs';
-import { unlink, readFile, writeFile, access } from 'fs/promises';
+import fs, { constants } from 'fs';
+import {
+  unlink,
+  readFile,
+  access,
+  rename as fsRename,
+  open,
+} from 'fs/promises';
 import { basename, join } from 'path';
+
+import logService from './log.service.js';
 
 const notExist = (error) => error.code === 'ENOENT';
 const alreadyExist = (error) =>
@@ -9,7 +17,7 @@ const alreadyExist = (error) =>
 const isFileExist = (path) => {
   return new Promise((resolve, reject) => {
     access(path, constants.F_OK)
-      .then(() => reject(new Error('FS operation failed')))
+      .then(() => reject(new Error("File isn't exist")))
       .catch(() => resolve(path));
   });
 };
@@ -20,7 +28,7 @@ const read = async (filename) => {
     return file;
   } catch (error) {
     if (notExist(error)) {
-      throw Error('File is not exist');
+      throw Error("File isn't exist");
     } else {
       throw error;
     }
@@ -29,7 +37,7 @@ const read = async (filename) => {
 
 const create = async (filename) => {
   try {
-    open(filename, 'wx', () => {});
+    await open(filename, 'wx');
   } catch (error) {
     if (alreadyExist(error)) {
       throw Error('File is already exist');
@@ -42,10 +50,10 @@ const create = async (filename) => {
 const rename = async (oldPath, newPath) => {
   try {
     await isFileExist(newPath);
-    fs.rename(oldPath, newPath, () => {});
+    await fsRename(oldPath, newPath);
   } catch (error) {
     if (notExist(error) || alreadyExist(error)) {
-      throw Error('FS operation failed');
+      throw Error('File system operation failed');
     }
     throw error;
   }
@@ -56,7 +64,7 @@ const remove = async (path) => {
     await unlink(path);
   } catch (error) {
     if (notExist(error)) {
-      throw Error('FS operation failed');
+      throw Error('File is not exist');
     } else {
       throw error;
     }
@@ -67,11 +75,16 @@ const copy = async (source, destinationDir) => {
   const fileName = basename(source);
   const destination = join(destinationDir, fileName);
 
-  const readableStream = fs.createReadStream(source, 'utf8');
+  const readableStream = fs.createReadStream(source, 'utf8', () => {});
   const writableStream = fs.createWriteStream(destination);
 
   readableStream.on('data', () => {
     writableStream.write(chunk);
+  });
+
+  readableStream.on('error', () => {});
+  writableStream.on('error', (error) => {
+    logService.printError(`Operation failed. ${error.message}`);
   });
 
   writableStream.end();

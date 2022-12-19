@@ -18,6 +18,6 @@ const terminateSession = (rl, username) => {
   process.exit();
 };
 
-const isAuthorized = (args) => 'username' in args;
+const isAuthorized = (args) => !!args.username;
 
 export default { logIn, terminateSession };

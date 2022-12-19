@@ -33,7 +33,7 @@ const execute = async (commandList) => {
       ? await COMMANDER[command](parameters)
       : COMMANDER.default();
   } catch (err) {
-    logService.printError('Operation failed. ' + err.message);
+    logService.printError(`Operation failed. ${err.message}`);
   }
 
   const currentDir = navigation.getCurrentDir();
